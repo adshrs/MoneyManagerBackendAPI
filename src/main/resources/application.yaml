@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: moneymanager-backend
+  data:
+    mongodb:
+      uri: mongodb+srv://adityashrs:ducati1299@cluster0.puutpni.mongodb.net/money_manager
+
+server:
+  port: 8090
+
+
+jwt:
+  key: ${JWT_KEY}
+  access-token-expiration: 3600000
+  refresh-token-expiration: 86400000
+
