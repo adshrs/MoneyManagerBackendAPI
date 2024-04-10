@@ -8,5 +8,5 @@ import org.springframework.security.core.userdetails.UserDetails
 data class RefreshToken(
     @Id
     val token: String,
-    val userDetails: UserDetails
+    val username: String
 )

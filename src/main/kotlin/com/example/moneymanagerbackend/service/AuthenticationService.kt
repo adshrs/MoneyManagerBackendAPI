@@ -9,8 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Service
-import java.util.Date
-import kotlin.system.exitProcess
+import java.util.*
 
 @Service
 class AuthenticationService(
@@ -33,7 +32,7 @@ class AuthenticationService(
         val accessToken = generateAccessToken(user)
         val refreshToken = generateRefreshToken(user)
 
-        refreshTokenRepository.save(RefreshToken(refreshToken, user))
+        refreshTokenRepository.save(RefreshToken(refreshToken, user.username))
 
         return AuthenticationResponse(
             accessToken = accessToken,
@@ -48,11 +47,15 @@ class AuthenticationService(
             val currentUserDetails = userDetailsService.loadUserByUsername(username)
             val refreshToken = refreshTokenRepository.findByToken(token)
 
-            if (!tokenService.isExpired(token) && refreshToken?.userDetails?.username == currentUserDetails.username)
+            if (!tokenService.isExpired(token) && refreshToken?.username == currentUserDetails.username)
                 generateAccessToken(currentUserDetails)
             else
                 null
         }
+    }
+
+    fun logout(username: String) {
+        refreshTokenRepository.deleteByUsername(username)
     }
 
     private fun generateRefreshToken(user: UserDetails) = tokenService.generate(

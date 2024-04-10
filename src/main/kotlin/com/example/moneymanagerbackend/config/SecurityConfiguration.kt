@@ -25,9 +25,15 @@ class SecurityConfiguration(private val authenticationProvider: AuthenticationPr
                 it
                     .requestMatchers("/api/auth", "/api/auth/refresh", "/error")
                     .permitAll()
+                    .requestMatchers("/api/auth/logout/{username}")
+                    .fullyAuthenticated()
                     .requestMatchers(HttpMethod.POST, "/api/user")
                     .permitAll()
                     .requestMatchers("/api/user/**")
+                    .fullyAuthenticated()
+                    .requestMatchers("/api/expense/**")
+                    .fullyAuthenticated()
+                    .requestMatchers("/api/category/**")
                     .fullyAuthenticated()
             }
             .sessionManagement {

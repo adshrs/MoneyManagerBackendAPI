@@ -2,7 +2,6 @@ package com.example.moneymanagerbackend.config
 
 import com.example.moneymanagerbackend.repository.UserRepository
 import com.example.moneymanagerbackend.service.CustomUserDetailsService
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

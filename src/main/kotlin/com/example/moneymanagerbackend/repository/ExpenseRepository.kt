@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface ExpenseRepository: MongoRepository<Expense, ObjectId> {
+
     fun findAllByUserId(userId: ObjectId): List<Expense>
 }
