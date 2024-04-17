@@ -18,7 +18,7 @@ class UserController(private val userService: UserService) {
             user = userRequest.toModel()
         )
             ?.toResponse()
-            ?: throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Cannot create a user.")
+            ?: throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Specified username or email already exists")
 
     @GetMapping
     fun listAll(): List<UserResponse> =
@@ -32,11 +32,11 @@ class UserController(private val userService: UserService) {
             ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "Cannot find a user.")
 
     @DeleteMapping("/{id}")
-    fun deleteById(@PathVariable id: ObjectId): ResponseEntity<Boolean> {
+    fun deleteById(@PathVariable id: ObjectId): ResponseEntity<String> {
         val success = userService.deleteById(id)
 
         return if (success)
-            ResponseEntity.noContent().build()
+            ResponseEntity.ok("User deleted")
         else
             throw ResponseStatusException(HttpStatus.NOT_FOUND, "Cannot find user.")
     }
@@ -54,11 +54,11 @@ class UserController(private val userService: UserService) {
 
     private fun User.toResponse(): UserResponse =
         UserResponse(
-            id = this.id,
+            id = this.id.toString(),
             username = this.username,
             name = this.name,
             email = this.email,
-            role = this.role
+            role = this.role.name
         )
 
 }

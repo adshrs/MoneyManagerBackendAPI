@@ -4,9 +4,9 @@ import com.example.moneymanagerbackend.model.Role
 import org.bson.types.ObjectId
 
 data class UserResponse(
-    val id: ObjectId,
+    val id: String,
     val username: String,
     val name: String,
     val email: String,
-    val role: Role
+    val role: String
 )

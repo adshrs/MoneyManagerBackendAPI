@@ -1,6 +1,7 @@
 package com.example.moneymanagerbackend.service
 
 import com.example.moneymanagerbackend.repository.UserRepository
+import org.bson.types.ObjectId
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
@@ -15,7 +16,14 @@ class CustomUserDetailsService(private val userRepository: UserRepository): User
     override fun loadUserByUsername(username: String): UserDetails =
         userRepository.findByUsername(username)
             ?.mapToUserDetails()
-            ?: throw UsernameNotFoundException("Not found!")
+            ?: throw UsernameNotFoundException("Username not found!")
+
+    fun getUserIdByUsername(username: String): ObjectId {
+        val user = userRepository.findByUsername(username)
+            ?: throw UsernameNotFoundException("Username not found!")
+
+        return user.id
+    }
 
     private fun ApplicationUser.mapToUserDetails(): UserDetails =
         User.builder()

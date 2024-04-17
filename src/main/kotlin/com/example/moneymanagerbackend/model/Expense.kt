@@ -10,8 +10,7 @@ data class Expense(
     @Id
     val id: ObjectId = ObjectId(),
     var amount: Double,
-    var date: LocalDate = LocalDate.now(),
-    var recurrence: String,
+    var date: String,
     var description: String,
     var categoryId: ObjectId,
     val userId: ObjectId
