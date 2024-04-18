@@ -33,6 +33,8 @@ class SecurityConfiguration(private val authenticationProvider: AuthenticationPr
                     .fullyAuthenticated()
                     .requestMatchers("/api/expense/**")
                     .fullyAuthenticated()
+                    .requestMatchers("/api/income/**")
+                    .fullyAuthenticated()
                     .requestMatchers("/api/category/**")
                     .fullyAuthenticated()
             }

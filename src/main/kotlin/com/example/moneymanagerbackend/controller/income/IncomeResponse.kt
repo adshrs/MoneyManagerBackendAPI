@@ -1,10 +1,9 @@
-package com.example.moneymanagerbackend.controller.expense
+package com.example.moneymanagerbackend.controller.income
 
-data class ExpenseResponse(
+data class IncomeResponse(
     val id: String,
     var amount: Double,
     var date: String,
     var description: String,
-    var categoryId: String,
     val userId: String
 )

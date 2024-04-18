@@ -5,18 +5,13 @@ import com.example.moneymanagerbackend.controller.expense.ExpenseResponse
 import com.example.moneymanagerbackend.model.Expense
 import com.example.moneymanagerbackend.repository.ExpenseRepository
 import org.bson.types.ObjectId
-import org.springframework.cglib.core.Local
-import org.springframework.format.datetime.DateFormatter
 import org.springframework.stereotype.Service
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 @Service
 class ExpenseService(
     private val expenseRepository: ExpenseRepository,
     private val userDetailsService: CustomUserDetailsService
 ) {
-    val formatter: DateTimeFormatter = DateTimeFormatter.BASIC_ISO_DATE
 
     fun getAllExpenses(username: String): List<ExpenseResponse> {
         val userId = userDetailsService.getUserIdByUsername(username)
@@ -66,7 +61,7 @@ class ExpenseService(
         ExpenseResponse(
             id = this.id.toString(),
             amount = this.amount,
-            date = this.date.toString(),
+            date = this.date,
             description = this.description,
             categoryId = this.categoryId.toString(),
             userId = this.userId.toString()

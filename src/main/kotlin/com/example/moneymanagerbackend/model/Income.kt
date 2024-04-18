@@ -5,12 +5,11 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 
 @Document
-data class Expense(
+data class Income(
     @Id
     val id: ObjectId = ObjectId(),
     var amount: Double,
     var date: String,
     var description: String,
-    var categoryId: ObjectId,
     val userId: ObjectId
 )
